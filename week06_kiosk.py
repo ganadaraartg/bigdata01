@@ -1,7 +1,10 @@
-menu = input("1) 아이스 아메리카노 2) 카페라떼 3) 주문 종료 : ")
-if menu == "1":
-    print("아이스 아메리카노를 주문하셨습니다. 가격은 2000원 입니다.")
-elif menu == "2":
-    print("아이스 아메리카노를 주문하셨습니다. 가격은 2000원 입니다.")
-elif menu == "3":
-    print("주문 종료.")
+prices = [2000,2500]
+while True:
+    menu = input(f"1) 아이스 아메리카노 {prices[0]} 2) 카페라떼 {prices[1]} 3) 주문 종료 : ")
+    if menu == "1":
+        print(f"아이스 아메리카노를 주문하셨습니다. 가격은 {prices[0]}원 입니다.")
+    elif menu == "2":
+        print(f"아이스 아메리카노를 주문하셨습니다. 가격은 {prices[1]}원 입니다.")
+    elif menu == "3":
+        print("주문 종료.")
+        break
