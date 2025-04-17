@@ -22,16 +22,19 @@ def display_menu() -> str:
     menu_texts = menu_texts + f"{len(drinks)+1}) 주문종료 : "
     return menu_texts
 
-
-while True:
-    menu = int(input(display_menu()))
-    if len(drinks) >= menu >= 1:
-        order_process(menu - 1)
-    elif menu == len(drinks)+1:
-        print("주문을 종료합니다")
-        break
-    else:
-        print(f"{menu}번 메뉴는 존재하지 않습니다. 아래 메뉴에서 골라주세요")
+try:
+    while True:
+        menu = 0
+        menu = int(input(display_menu()))
+        if len(drinks) >= menu >= 1:
+            order_process(menu - 1)
+        elif menu == len(drinks)+1:
+            print("주문을 종료합니다")
+            break
+        else:
+            print(f"{menu}번 메뉴는 존재하지 않습니다. 아래 메뉴에서 골라주세요")
+except ValueError:
+    print(f"{menu}는 잘못된 입력입니다. 숫자를 입력해주세요.")
 
 print(f"{'상품명':^20}{'단가':^6}{'수량':^6}{'금액':^6}")
 for i in range(len(drinks)):
