@@ -1,8 +1,17 @@
+import kiosk as kk
+
 drinks = ["아이스 아메리카노", "카페 라떼", "수박 주스", "딸기 주스"]
 prices = [1500, 2500, 4000, 4200]
 
 total_price = 0
 amounts = [0] * len(drinks)
+
+DISCOUNT_THRESHOLD = 10000
+DISCOUNT_RATE = 0.1
+
+def apply_discount(price:int) -> float:
+    if price >= DISCOUNT_THRESHOLD:
+        return price * (1-DISCOUNT_RATE)
 
 def order_process(idx: int) -> None:
     """
@@ -37,4 +46,31 @@ def print_receipt() -> None:
         if amounts[i] > 0:
             print(f"{drinks[i]:^20}{prices[i]:^6}{amounts[i]:^6}{prices[i] * amounts[i]:^6}")
 
+    discounted_price = apply_discount(total_price)
+    discount = total_price - discounted_price
+
+    print(f"할인 전 총 주문 금액:{total_price}원")
+    if discount > 0:
+        print(f"할인 금액 : {discount}원")
+        print(f"할인 적용 후 지불하실 총 금액은 {discounted_price}원 입니다.")
+    else:
+        print(f"할인이 적용되지 않았습니다. \n 지불하실 총 금액은 {total_price}")
+
+
     print(f"총 주문 금액 : {total_price}원")
+
+def get_ticket_number() -> int:
+    try:
+        with open("ticket.txt","r") as fp:
+            number = int(fp.read())
+    except FileNotFoundError:
+        number = 0
+
+    number = number + 1
+
+    with open("ticket.txt","w") as fp:
+        fp.write(str(number))
+    return number
+
+kk.print_receipt()
+print(f"번호표 : {kk.get_ticket_number}")
